@@ -1,7 +1,9 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Cheese, Wine} = require('../server/db/models')
+// const Cheese = require('../server/db/models/cheeses')
+// const Wine = require('../server/db/models/wines')
 
 async function seed() {
   await db.sync({force: true})
@@ -12,7 +14,39 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
+  const cheese = await Promise.all([
+    Cheese.create({
+      name: 'Cheese 1',
+      imageUrl:
+        'https://holiday.wholefoodsmarket.com/static/1688/1_TruffleGouda1.jpg',
+      description: '2'
+    }),
+    Cheese.create({
+      name: 'Cheese 2',
+      imageUrl:
+        '/Users/amantinasosa/Desktop/Practice Projects/cheese-factory2/public/2_EsquirrouPetitOssauIraty.jpg',
+      description: '1'
+    })
+  ])
+
+  const wine = await Promise.all([
+    Wine.create({
+      name: 'Wine 1',
+      imageUrl:
+        'https://holiday.wholefoodsmarket.com/static/1688/1_TruffleGouda1.jpg',
+      description: '2'
+    }),
+    Wine.create({
+      name: 'Wine 2',
+      imageUrl:
+        'https://holiday.wholefoodsmarket.com/static/1688/1_TruffleGouda1.jpg',
+      description: '1'
+    })
+  ])
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${cheese.length} cheeses`)
+  console.log(`seeded ${wine.length} wines`)
+
   console.log(`seeded successfully`)
 }
 
