@@ -1,5 +1,8 @@
 body {
   font-family: sans-serif;
+  background-image: url('./cheese_board.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 a {
