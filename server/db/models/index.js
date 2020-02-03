@@ -17,8 +17,19 @@ const Wine = require('./wines')
  * instead of: const User = require('../db/models/user')
  */
 
-Cheese.belongsTo(Wine)
-Wine.hasMany(Cheese)
+// Cheese.belongsTo(Wine)
+// Wine.hasMany(Cheese)
+
+//user has many cheese
+//user has many wine
+//wine belongsToMany  user
+//cheese belongsToMany  user
+
+User.hasMany(Cheese)
+User.hasMany(Wine)
+Cheese.belongsTo(User)
+Wine.belongsTo(Cheese)
+
 module.exports = {
   db,
   User,

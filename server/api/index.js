@@ -5,12 +5,6 @@ router.use('/users', require('./users'))
 const Cheese = require('../db/models/cheeses')
 const Wine = require('../db/models/wines')
 
-router.use((req, res, next) => {
-  const error = new Error('Not Found')
-  error.status = 404
-  next(error)
-})
-
 router.get('/cheeses', async (req, res, next) => {
   try {
     const allCheese = await Cheese.findAll()
@@ -28,4 +22,39 @@ router.get('/wines', async (req, res, next) => {
     next(error)
   }
 })
+
+router.get('/cheeses/:id', async (req, res, next) => {
+  try {
+    const singleCheese = await Cheese.findById(req.params.id)
+    if (!singleCheese) {
+      const error = Error('not found')
+      error.status = 404
+      return next(error)
+    }
+    res.json(singleCheese)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/wines/:id', async (req, res, next) => {
+  try {
+    const singleWine = await Cheese.findById(req.params.id)
+    if (!singleWine) {
+      const error = Error('not found')
+      error.status = 404
+      return next(error)
+    }
+    res.json(singleWine)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.use((req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
+})
+
 module.exports = router

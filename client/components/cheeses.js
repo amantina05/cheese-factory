@@ -9,6 +9,12 @@ export default class Cheeses extends Component {
       cheeses: []
     }
   }
+
+  async componentDidMount() {
+    const res = await axios.get('/api/cheeses')
+    this.setState({cheeses: res.data})
+  }
+
   render() {
     return (
       <div>
@@ -22,3 +28,4 @@ export default class Cheeses extends Component {
     )
   }
 }
+//map to state props here
