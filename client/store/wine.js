@@ -1,10 +1,11 @@
 import axios from 'axios'
 import {combineReducers} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 
 /**
  * ACTION TYPES
  */
-const GET_WINE = 'GET_WINE'
+const GOT_WINE = 'GOT_WINE'
 const GET_SINGLE_WINE = 'GET_SINGLE_WINE'
 /**
  * INITIAL STATE
@@ -16,38 +17,40 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-const getWines = wines => ({
-  type: GET_WINE,
+const gotWines = wines => ({
+  type: GOT_WINE,
   wines
 })
 
-const getSingleWine = wine => ({
-  type: GET_WINE,
+const gotSingleWine = wine => ({
+  type: GET_SINGLE_WINE,
   wine
 })
 /**
  * THUNK CREATORS
  */
-// export const one = () => async dispatch => {
-//   try {
-//     const {data} = await axios.get('/api/wines')
-//     dispatch(getWines(data))
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
-export const gotWines = () => {
+
+export const getWines = () => {
+  console.log('thunk')
   return async dispatch => {
     const {data} = await axios.get('/api/wines')
-    dispatch(getWines(data))
+    dispatch(gotWines(data))
+  }
+}
+
+export const getSingleWine = wineId => {
+  return async dispatch => {
+    const {data} = await axios.get(`/api/wines/${wineId}`)
+    dispatch(gotSingleWine(data))
   }
 }
 /**
  * REDUCER
  */
 function winesReducer(wines = [], action) {
+  console.log('reducer')
   switch (action.type) {
-    case GET_WINE:
+    case GOT_WINE:
       return action.wines
     default:
       return wines

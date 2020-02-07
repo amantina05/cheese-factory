@@ -12,6 +12,8 @@ const middleware = composeWithDevTools(
 )
 const store = createStore(reducer, middleware)
 
+// store.subscribe = () => console.log(store.getState())
+
 export default store
 export * from './user'
 export * from './cheese'

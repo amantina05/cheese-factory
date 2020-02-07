@@ -25,9 +25,9 @@ router.get('/wines', async (req, res, next) => {
 
 router.get('/cheeses/:id', async (req, res, next) => {
   try {
-    const singleCheese = await Cheese.findById(req.params.id)
+    const singleCheese = await Cheese.findByPk(req.params.id)
     if (!singleCheese) {
-      const error = Error('not found')
+      const error = Error('Our apologies we currently do not have that listed')
       error.status = 404
       return next(error)
     }
@@ -39,9 +39,9 @@ router.get('/cheeses/:id', async (req, res, next) => {
 
 router.get('/wines/:id', async (req, res, next) => {
   try {
-    const singleWine = await Cheese.findById(req.params.id)
+    const singleWine = await Cheese.findByPk(req.params.id)
     if (!singleWine) {
-      const error = Error('not found')
+      const error = Error('Our apologies we currently do not have that listed')
       error.status = 404
       return next(error)
     }

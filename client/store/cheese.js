@@ -1,10 +1,11 @@
 import axios from 'axios'
 import {combineReducers} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 
 /**
  * ACTION TYPES
  */
-const GET_CHEESE = 'GET_CHEESE'
+const GOT_CHEESE = 'GOT_CHEESE'
 const GET_SINGLE_CHEESE = 'GET_SINGLE_CHEESE'
 /**
  * INITIAL STATE
@@ -16,11 +17,12 @@ const initialState = {
 /**
  * ACTION CREATORS
  */
-const getCheese = cheeses => ({
-  type: GET_CHEESE,
+//after
+const gotCheese = cheeses => ({
+  type: GOT_CHEESE,
   cheeses
 })
-const getSingleCheese = cheese => ({
+const gotSingleCheese = cheese => ({
   type: GET_SINGLE_CHEESE,
   cheese
 })
@@ -28,26 +30,28 @@ const getSingleCheese = cheese => ({
 /**
  * THUNK CREATORS
  */
-// export const one = () => async dispatch => {
-//   try {
-//     const {data} = await axios.get('/api/cheese')
-//     dispatch(getCheese(data))
-//   } catch (error) {
-//     console.error(error)
-//   }
-// }
-export const gotCheese = () => {
+//before
+export const getCheese = () => {
+  console.log('thunk')
   return async dispatch => {
     const {data} = await axios.get('/api/cheeses')
-    dispatch(getCheese(data))
+    dispatch(gotCheese(data))
+  }
+}
+
+export const getSingleCheese = id => {
+  return async dispatch => {
+    const {data} = await axios.get(`/api/cheeses/${id}`)
+    dispatch(gotSingleCheese(data))
   }
 }
 /**
  * REDUCER
  */
 function cheesesReducer(cheeses = [], action) {
+  console.log('reducer')
   switch (action.type) {
-    case GET_CHEESE:
+    case GOT_CHEESE:
       return action.cheeses
     default:
       return cheeses
@@ -81,3 +85,7 @@ const rootReducer = combineReducers({
 })
 
 export default rootReducer
+
+// const store = createStore(cheesesReducer, applyMiddleware())
+
+// export default store

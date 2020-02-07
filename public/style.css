@@ -1,8 +1,10 @@
 body {
   font-family: sans-serif;
   background-image: url('./cheese_board.jpg');
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-size: cover;
+  /* background-size: auto auto; */
+  text-align: center;
 }
 
 a {
@@ -21,4 +23,11 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.cheeses-component {
+  /* background-color: white; */
+  /* background-image: url('./cheese_board.jpg'); */
+  /* background-repeat: no-repeat; */
+  /* background-size: auto; */
 }
